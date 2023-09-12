@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.1
+- https://www.phpmyadmin.net
+-
+- Počítač: 127.0.0.1
+- Vytvořeno: Stř 13. zář 2023, 00:13
+- Verze serveru: 10.4.28-MariaDB
+- Verze PHP: 8.2.4
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="muzika" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="album">
+                CREATE TABLE `album` (
+                  `id_album` int(11) NOT NULL AUTO_INCREMENT,
+                  `id_typ_zanr` int(11) DEFAULT NULL,
+                  `nazev_album` text DEFAULT NULL,
+                  `datum_vydani` date DEFAULT NULL,
+                  PRIMARY KEY (`id_album`) USING BTREE,
+                  KEY `Relace2` (`id_typ_zanr`),
+                  CONSTRAINT `Relace2` FOREIGN KEY (`id_typ_zanr`) REFERENCES `typ_zanr` (`id_typ_zanr`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="album_interpret">
+                CREATE TABLE `album_interpret` (
+                  `id_album_interpret` int(11) NOT NULL AUTO_INCREMENT,
+                  `id_album` int(11) DEFAULT NULL,
+                  `id_interpret` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id_album_interpret`),
+                  KEY `Relace10` (`id_album`),
+                  KEY `Relace11` (`id_interpret`),
+                  CONSTRAINT `Relace10` FOREIGN KEY (`id_album`) REFERENCES `album` (`id_album`),
+                  CONSTRAINT `Relace11` FOREIGN KEY (`id_interpret`) REFERENCES `interpret` (`id_interpret`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="album_skladba">
+                CREATE TABLE `album_skladba` (
+                  `id_album_skladba` int(11) NOT NULL AUTO_INCREMENT,
+                  `cislo_stopy` int(11) DEFAULT NULL,
+                  `id_album` int(11) DEFAULT NULL,
+                  `id_skladba` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id_album_skladba`),
+                  KEY `Relace7` (`id_album`),
+                  KEY `Relace8` (`id_skladba`),
+                  CONSTRAINT `Relace7` FOREIGN KEY (`id_album`) REFERENCES `album` (`id_album`),
+                  CONSTRAINT `Relace8` FOREIGN KEY (`id_skladba`) REFERENCES `skladba` (`id_skladba`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="interpret">
+                CREATE TABLE `interpret` (
+                  `id_interpret` int(11) NOT NULL AUTO_INCREMENT,
+                  `nazev_interpret` text DEFAULT NULL,
+                  `id_typ_narodnost` int(11) NOT NULL,
+                  PRIMARY KEY (`id_interpret`),
+                  KEY `Relace9` (`id_typ_narodnost`),
+                  CONSTRAINT `Relace9` FOREIGN KEY (`id_typ_narodnost`) REFERENCES `typ_narodnost` (`id_typ_narodnost`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="skladba">
+                CREATE TABLE `skladba` (
+                  `id_skladba` int(11) NOT NULL AUTO_INCREMENT,
+                  `nazev_skladba` text DEFAULT NULL,
+                  `delka` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id_skladba`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="typ_narodnost">
+                CREATE TABLE `typ_narodnost` (
+                  `id_typ_narodnost` int(11) NOT NULL AUTO_INCREMENT,
+                  `nazev_narodnost` text DEFAULT NULL,
+                  PRIMARY KEY (`id_typ_narodnost`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="typ_zanr">
+                CREATE TABLE `typ_zanr` (
+                  `id_typ_zanr` int(11) NOT NULL AUTO_INCREMENT,
+                  `nazev_zanr` text DEFAULT NULL,
+                  PRIMARY KEY (`id_typ_zanr`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Databáze: 'muzika'
+    -->
+    <database name="muzika">
+        <!-- Tabulka album -->
+        <table name="album">
+            <column name="id_album">1</column>
+            <column name="id_typ_zanr">2</column>
+            <column name="nazev_album">Modrá je dobrá</column>
+            <column name="datum_vydani">1999-01-01</column>
+        </table>
+        <table name="album">
+            <column name="id_album">2</column>
+            <column name="id_typ_zanr">3</column>
+            <column name="nazev_album">Zelená není špatná</column>
+            <column name="datum_vydani">2000-11-09</column>
+        </table>
+        <table name="album">
+            <column name="id_album">3</column>
+            <column name="id_typ_zanr">1</column>
+            <column name="nazev_album">Žlutá je nejhorší </column>
+            <column name="datum_vydani">2005-02-19</column>
+        </table>
+        <!-- Tabulka album_interpret -->
+        <table name="album_interpret">
+            <column name="id_album_interpret">1</column>
+            <column name="id_album">1</column>
+            <column name="id_interpret">13</column>
+        </table>
+        <table name="album_interpret">
+            <column name="id_album_interpret">2</column>
+            <column name="id_album">2</column>
+            <column name="id_interpret">11</column>
+        </table>
+        <table name="album_interpret">
+            <column name="id_album_interpret">3</column>
+            <column name="id_album">3</column>
+            <column name="id_interpret">12</column>
+        </table>
+        <table name="album_interpret">
+            <column name="id_album_interpret">4</column>
+            <column name="id_album">1</column>
+            <column name="id_interpret">13</column>
+        </table>
+        <table name="album_interpret">
+            <column name="id_album_interpret">5</column>
+            <column name="id_album">1</column>
+            <column name="id_interpret">13</column>
+        </table>
+        <!-- Tabulka album_skladba -->
+        <table name="album_skladba">
+            <column name="id_album_skladba">1</column>
+            <column name="cislo_stopy">12</column>
+            <column name="id_album">1</column>
+            <column name="id_skladba">1</column>
+        </table>
+        <table name="album_skladba">
+            <column name="id_album_skladba">2</column>
+            <column name="cislo_stopy">8</column>
+            <column name="id_album">2</column>
+            <column name="id_skladba">3</column>
+        </table>
+        <table name="album_skladba">
+            <column name="id_album_skladba">3</column>
+            <column name="cislo_stopy">13</column>
+            <column name="id_album">3</column>
+            <column name="id_skladba">2</column>
+        </table>
+        <table name="album_skladba">
+            <column name="id_album_skladba">5</column>
+            <column name="cislo_stopy">6</column>
+            <column name="id_album">1</column>
+            <column name="id_skladba">7</column>
+        </table>
+        <table name="album_skladba">
+            <column name="id_album_skladba">6</column>
+            <column name="cislo_stopy">2</column>
+            <column name="id_album">1</column>
+            <column name="id_skladba">4</column>
+        </table>
+        <!-- Tabulka interpret -->
+        <table name="interpret">
+            <column name="id_interpret">11</column>
+            <column name="nazev_interpret">Michal David</column>
+            <column name="id_typ_narodnost">3</column>
+        </table>
+        <table name="interpret">
+            <column name="id_interpret">12</column>
+            <column name="nazev_interpret">Rytmus</column>
+            <column name="id_typ_narodnost">2</column>
+        </table>
+        <table name="interpret">
+            <column name="id_interpret">13</column>
+            <column name="nazev_interpret">Black Sabbath</column>
+            <column name="id_typ_narodnost">1</column>
+        </table>
+        <table name="interpret">
+            <column name="id_interpret">14</column>
+            <column name="nazev_interpret">Dan Nekonečný </column>
+            <column name="id_typ_narodnost">1</column>
+        </table>
+        <table name="interpret">
+            <column name="id_interpret">15</column>
+            <column name="nazev_interpret">Majk Spirit</column>
+            <column name="id_typ_narodnost">2</column>
+        </table>
+        <!-- Tabulka skladba -->
+        <table name="skladba">
+            <column name="id_skladba">1</column>
+            <column name="nazev_skladba">Být stále mlád</column>
+            <column name="delka">94</column>
+        </table>
+        <table name="skladba">
+            <column name="id_skladba">2</column>
+            <column name="nazev_skladba">Žijeme len raz </column>
+            <column name="delka">123</column>
+        </table>
+        <table name="skladba">
+            <column name="id_skladba">3</column>
+            <column name="nazev_skladba">Hells Bells</column>
+            <column name="delka">154</column>
+        </table>
+        <table name="skladba">
+            <column name="id_skladba">4</column>
+            <column name="nazev_skladba">PrimeTime </column>
+            <column name="delka">460</column>
+        </table>
+        <table name="skladba">
+            <column name="id_skladba">7</column>
+            <column name="nazev_skladba">Hype</column>
+            <column name="delka">56</column>
+        </table>
+        <!-- Tabulka typ_narodnost -->
+        <table name="typ_narodnost">
+            <column name="id_typ_narodnost">1</column>
+            <column name="nazev_narodnost">Česko</column>
+        </table>
+        <table name="typ_narodnost">
+            <column name="id_typ_narodnost">2</column>
+            <column name="nazev_narodnost">Slovensko</column>
+        </table>
+        <table name="typ_narodnost">
+            <column name="id_typ_narodnost">3</column>
+            <column name="nazev_narodnost">Polsko</column>
+        </table>
+        <!-- Tabulka typ_zanr -->
+        <table name="typ_zanr">
+            <column name="id_typ_zanr">1</column>
+            <column name="nazev_zanr">Rock</column>
+        </table>
+        <table name="typ_zanr">
+            <column name="id_typ_zanr">2</column>
+            <column name="nazev_zanr">Blues</column>
+        </table>
+        <table name="typ_zanr">
+            <column name="id_typ_zanr">3</column>
+            <column name="nazev_zanr">Rap</column>
+        </table>
+    </database>
+</pma_xml_export>
